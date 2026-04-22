@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Make Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 680px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: 700;
+        }
+
+        input,
+        textarea,
+        button {
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 6px;
+            padding: 10px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .message {
+            color: red;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    {% if message %}
+        <p class="message" role="alert">{{ message }}</p>
+    {% endif %}
+
+    <form action="/makeimage" method="post" enctype="application/x-www-form-urlencoded" novalidate>
+        <label for="width">width</label>
+        <input id="width" name="width" type="number" min="256" max="1024" step="32" value="{{ width|default(512) }}" required>
+
+        <label for="height">height</label>
+        <input id="height" name="height" type="number" min="256" max="1024" step="32" value="{{ height|default(512) }}" required>
+
+        <label for="text">text</label>
+        <textarea id="text" name="text" required>{{ text|default("") }}</textarea>
+
+        <button type="submit">Generate JPEG</button>
+    </form>
+</body>
+</html>
